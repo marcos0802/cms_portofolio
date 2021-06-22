@@ -1,9 +1,15 @@
 import express from "express";
-import mysql from "mysql";
+import cors from "cors";
 
 import db from "./config/db.js";
 
 const app = express();
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
+
+// - register view engine -
+app.set("view engine", "ejs");
 
 const PORT = process.env.PORT || 5000;
 
