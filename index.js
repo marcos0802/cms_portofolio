@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import db from "./config/db.js";
+import projectsRoutes from "./routes/projectsRoutes.js";
 
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -14,14 +15,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.render("projects/index", { title: "Home" });
+  res.redirect("/projects");
 });
 
-// app.get("/", (req, res) => {
-//   res.redirect("/blogs");
-// });
-
-//app.use("/blogs", blogRoutes);
+app.use("/projects", projectsRoutes);
 
 // - 404 Page -
 app.use((req, res) => {
