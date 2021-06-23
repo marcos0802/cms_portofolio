@@ -6,11 +6,124 @@
       <%- include('../partials/nav.ejs') %>
 
       <div class="row">
-        <div class="col-lg-8 col-md-8">col-sm-8</div>
-        <div class="col-lg-4 col-md-12">col-sm-4</div>
+        <div class="col-lg-8 col-md-12 projects">
+          <% if(projects.length > 0){%> <% projects.map((project,index)=>{ %>
+
+          <div class="card" style="width: 15rem;">
+            <img
+              src="<%= project.picture_url  %>"
+              class="card-img-top"
+              alt="<%= project.title%>"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= project.title%></h5>
+              <p class="card-text">
+                <%= project.snippet %>
+              </p>
+              <div style="display: flex; justify-content: space-between;">
+                <a href="#" class="btn btn btn-outline-primary btn-sm"
+                  >Details</a
+                >
+                <a href="#" class="btn btn btn-outline-danger btn-sm">Delete</a>
+              </div>
+            </div>
+          </div>
+
+          <% }) %> <% }else{ %>
+          <p>There are no projects to display</p>
+          <% } %>
+        </div>
+        <div class="col-lg-4 col-md-8 col-sm-12">
+          <div class="card text-center">
+            <div class="card-header">
+              <h5><strong>Create a Project</strong></h5>
+            </div>
+            <div class="card-body">
+             <form action="/projects" method="POST">
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                name="title"
+                placeholder="Project Title"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                name="snippet"
+                placeholder="Project Tags"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <textarea
+                class="form-control"
+                name="description"
+                placeholder="Project Description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="start-date" class="form-label">Starting Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required />
+              </div>
+              <div class="col">
+                <label for="end-date" class="form-label">Ending Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required />
+              </div>
+            </div>
+            <br />
+            <div class="col">
+              <input type="file" class="form-control" id="file-upload" />
+              <input type="hidden" name="picture_url" id="picture_url">
+            </div>
+            <br />
+            <div class="d-grid gap-2">
+              <button class="btn btn-success" type="submit">Save</button>
+              <button class="btn btn-danger btn-sm" type="clear">Clear</button>
+            </div>
+          </form>
+          </div>
+          
+        </div>
       </div>
 
       <%- include('../partials/footer.ejs') %>
     </div>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/marcosmus/upload";
+      const CLOUDINARY_UPLOAD_PRESET = "vyjbkj82";
+
+      const fileUpload = document.getElementById("file-upload");
+      const pictureUrl = document.getElementById("picture_url");
+
+      fileUpload.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+        axios({
+          url: CLOUDINARY_URL,
+          method: "POST",
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: formData,
+        })
+          .then((res) => {
+            pictureUrl.value = res.data.secure_url;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    </script>
   </body>
 </html>
