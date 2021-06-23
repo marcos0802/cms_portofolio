@@ -47,7 +47,42 @@ nav a {
 }
 
 .row {
-  padding: 20px !important;
+  padding: 5px !important;
+}
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  margin: 10px;
+}
+
+.card-img-top {
+  height: 10rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  font-size: medium;
+}
+
+.image {
+  width: 450px;
+  height: 450px;
+  object-fit: contain;
+}
+
+textarea {
+  resize: none;
 }
 
 footer {

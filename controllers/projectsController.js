@@ -9,16 +9,16 @@ export const getProjects = async (req, res) => {
 };
 
 export const getProject = async (req, res) => {
-  const id = req.parms.id;
+  const id = req.params.id;
   const sql = "SELECT * FROM cms_projects WHERE id=?";
   await db.query(sql, id, (err, result) => {
     if (err) throw err;
-    res.render("projects/index", { title: "Details", project: result }); // to be changed
+    res.render("projects/details", { title: "Details", project: result }); // to be changed
   });
 };
 
 export const createProject = async (req, res) => {
-  const project = req.parms.body;
+  const project = req.body;
   const sql = "INSERT INTO cms_projects SET ?";
   await db.query(sql, project, (err, result) => {
     if (err) throw err;
@@ -27,9 +27,9 @@ export const createProject = async (req, res) => {
 };
 
 export const deleteProject = async (req, res) => {
-  const id = req.parms.id;
-  const sql = "DELETE FROM cms_projects WHERE id=?";
-  await db.query(sql, id, (err, result) => {
+  const id = req.params.id;
+  const sql = `DELETE FROM cms_projects WHERE id=${id}`;
+  await db.query(sql, (err, result) => {
     if (err) throw err;
     res.redirect("/projects");
   });

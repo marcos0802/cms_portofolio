@@ -20,17 +20,19 @@
               <p class="card-text">
                 <%= project.snippet %>
               </p>
-              <div style="display: flex; justify-content: space-between;">
-                <a href="#" class="btn btn btn-outline-primary btn-sm"
+              <div style="text-align: center;">
+                <a href="/projects/<%= project.id %>" class="btn btn btn-outline-primary btn-sm"
                   >Details</a
                 >
-                <a href="#" class="btn btn btn-outline-danger btn-sm">Delete</a>
+                 <a class="btn btn btn-outline-danger btn-sm" id="btn-delete" data-doc="<%= project.id %>"
+                >Delete</a
+              >
               </div>
             </div>
           </div>
 
           <% }) %> <% }else{ %>
-          <p>There are no projects to display</p>
+          <h4>No project to display</h4>
           <% } %>
         </div>
         <div class="col-lg-4 col-md-8 col-sm-12">
@@ -78,14 +80,19 @@
               </div>
             </div>
             <br />
-            <div class="col">
-              <input type="file" class="form-control" id="file-upload" />
+            <div class="row">
+             <div class="col-10">
+                <input type="file" class="form-control" id="file-upload" />
+             </div>
+              <div hidden class=" col-2 spinner-border" role="status" id="loader">
+               <span class="visually-hidden">Loading...</span>
+              </div>
               <input type="hidden" name="picture_url" id="picture_url">
             </div>
             <br />
             <div class="d-grid gap-2">
               <button class="btn btn-success" type="submit">Save</button>
-              <button class="btn btn-danger btn-sm" type="clear">Clear</button>
+              <button class="btn btn-danger btn-sm" type="reset">Clear</button>
             </div>
           </form>
           </div>
@@ -100,10 +107,14 @@
       const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/marcosmus/upload";
       const CLOUDINARY_UPLOAD_PRESET = "vyjbkj82";
 
+      const deleteBtn = document.getElementById("btn-delete");
+
       const fileUpload = document.getElementById("file-upload");
       const pictureUrl = document.getElementById("picture_url");
-
+      const loader = document.getElementById("loader");
+      
       fileUpload.addEventListener("change", (event) => {
+        loader.hidden = false;
         const file = event.target.files[0];
         const formData = new FormData();
         formData.append("file", file);
@@ -118,12 +129,29 @@
           data: formData,
         })
           .then((res) => {
+            loader.hidden = true;
             pictureUrl.value = res.data.secure_url;
           })
           .catch((err) => {
             console.log(err);
           });
+      });     
+
+      deleteBtn.addEventListener("click", (event) => {
+        const endpoint = `/projects/${deleteBtn.dataset.doc}`;
+        axios({
+          url: endpoint,
+          method: "DELETE",
+        })
+          .then((res) => {
+            location.reload(true);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+          location.reload(true);
       });
-    </script>
+   
+   </script>
   </body>
 </html>
