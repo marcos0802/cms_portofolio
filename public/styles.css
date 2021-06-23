@@ -4,6 +4,8 @@ body {
   font-family: "Lato", sans-serif;
   text-decoration: none;
   background: #f5f3f3;
+  width: 100%;
+  padding: 0 12.5vw;
 }
 
 p,
@@ -67,6 +69,12 @@ nav a {
   object-fit: cover;
 }
 
+.image {
+  height: 30rem;
+  width: 100%;
+  object-fit: cover;
+}
+
 .card-title {
   white-space: nowrap;
   overflow: hidden;
@@ -75,14 +83,19 @@ nav a {
   font-size: medium;
 }
 
-.image {
-  width: 450px;
-  height: 450px;
-  object-fit: contain;
-}
-
 textarea {
   resize: none;
+}
+
+.details .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.det-col {
+  width: calc(50% - 20px);
 }
 
 footer {
@@ -90,3 +103,15 @@ footer {
   text-align: center;
   margin: 80px auto 20px;
 }
+
+@media (max-width: 1300px) {
+}
+
+/* background: linear-gradient(
+                  0deg,
+                  rgb(173, 183, 204) 11%,
+                  rgba(70, 75, 87, 0.769) 45%,
+                  rgba(63, 65, 71, 0.253) 95%
+                ),
+                url('<%=pjt.picture_url%>') no-repeat;
+              background-size: cover; */

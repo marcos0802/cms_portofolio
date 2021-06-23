@@ -1,37 +1,27 @@
 {
   "name": "cms_portofolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a simple Node JS application to manage all my projects, done for academics requirements!",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
-    "build": "babel src --out-dir dist",
-    "test": "jest --coverage",
-    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|jsx|ts|tsx|json)\"",
-    "format": "npm run prettier -- --write",
-    "check-format": "npm run prettier -- --list-different",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx .",
-    "validate": "npm-run-all --parallel check-format lint",
-    "husky-install": "husky install"
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcos0802/cms_portofolio.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/cli": "^7.14.3",
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
-    "eslint": "^7.27.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^24.3.6",
-    "husky": "^6.0.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.0"
+  "bugs": {
+    "url": "https://github.com/marcos0802/cms_portofolio/issues"
   },
+  "homepage": "https://github.com/marcos0802/cms_portofolio#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
